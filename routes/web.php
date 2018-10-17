@@ -12,5 +12,5 @@
 */
 
 Route::get('/', function () {
-    return Tmdb\Laravel\Facades\Tmdb::getMoviesApi()->getMovie(500);
+    return view('welcome');
 });
