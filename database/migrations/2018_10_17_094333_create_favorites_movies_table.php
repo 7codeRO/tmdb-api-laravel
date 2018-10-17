@@ -13,14 +13,14 @@ class CreateFavoritesMoviesTable extends Migration
      */
     public function up()
     {
-        Schema::create('favorites_movies', function (Blueprint $table) {
+        Schema::create('favorite_movies', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('tmdb_movie_id');
             $table->timestamps();
         });
 
-        Schema::table('favorites_movies', function (Blueprint $table) {
+        Schema::table('favorite_movies', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
         });
 
@@ -35,7 +35,7 @@ class CreateFavoritesMoviesTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('favorites_movies');
+        Schema::dropIfExists('favorite_movies');
         Sch‌​ema::enableForeignKe‌​yConstraints();
     }
 }

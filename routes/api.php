@@ -15,6 +15,10 @@ use Illuminate\Http\Request;
 
 Route::prefix('v1')->middleware(['auth.basic.once'])->group(function() {
 
+    Route::apiResource('movie', 'MovieController');
+
+    Route::apiResource('favorites', 'FavoriteMovieController');
+
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
