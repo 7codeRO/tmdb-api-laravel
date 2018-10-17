@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\FavoriteMovie;
 use Illuminate\Http\Request;
+use Tmdb\Laravel\Facades\Tmdb;
 use Tmdb\Repository\MovieRepository;
 use App\Http\Controllers\Controller;
 
@@ -24,7 +25,20 @@ class FavoriteMovieController extends Controller
      */
     public function index()
     {
+        $currentUser = \Auth::user();
+        $favoriteMovies = $currentUser->favoriteMovies;
 
+        $movies = [];
+        foreach ($favoriteMovies as $favMovie)
+        {
+            try {
+                $tmdbMovie = Tmdb::getMoviesApi()->getMovie($favMovie->tmdb_video_id);
+            } catch (\Exception $e) {
+                $tmdbMovie = null;
+            }
+        }
+
+        return response()->json($favoriteMovies);
     }
 
     /**
